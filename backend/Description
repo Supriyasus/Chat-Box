@@ -1,0 +1,84 @@
+### Backend Description
+
+The backend of this project is a real-time chat server implemented using **Node.js**, **Express.js**, and **Socket.IO**. It handles client-server communication, chat history management, and serves static files for the frontend. Below is a detailed explanation of the components and functionality:
+
+---
+
+#### **Key Features**
+1. **WebSocket Communication**:
+   - Enables real-time messaging between clients.
+   - Uses `Socket.IO` to establish and manage bidirectional communication.
+
+2. **Chat History Management**:
+   - Maintains a server-side `chatHistory` array to store all messages.
+   - Ensures messages persist during the server's runtime.
+
+3. **Static File Serving**:
+   - Serves frontend assets and the main HTML file using `Express.js`.
+
+4. **Unique Username Assignment**:
+   - Generates a unique username for each client using the `unique-names-generator` library.
+
+---
+
+#### **Main Components**
+
+1. **`server.js` File**:
+   - Initializes both the HTTP server and WebSocket server.
+   - Configures routes, WebSocket events, and message broadcasting.
+
+2. **Core Functionalities**:
+   - **Connection Handling**:
+     - Listens for new WebSocket connections.
+     - Assigns a unique username to each user and logs the connection.
+   - **Message Broadcasting**:
+     - Receives messages from clients via the `post-message` event.
+     - Updates the `chatHistory` array and broadcasts the updated history to all clients.
+   - **Disconnection Handling**:
+     - Logs when a client disconnects to monitor active sessions.
+
+3. **Helper Functions**:
+   - **`getAllMessages()`**: Retrieves all chat messages in reverse order for display.
+   - **`getUniqueUsername()`**: Generates human-readable usernames by combining random names and colors.
+
+4. **Server Setup**:
+   - **Express.js**:
+     - Serves static files from the `frontend` directory.
+     - Handles the root (`/`) route to serve the main chat page.
+   - **Socket.IO**:
+     - Manages real-time events such as message posting and connection/disconnection.
+
+---
+
+#### **Workflow**
+
+1. **Client Connection**:
+   - A client connects to the WebSocket server.
+   - The server assigns a unique username and sends the current chat history to the client.
+
+2. **Message Handling**:
+   - Clients send messages via the `post-message` event.
+   - The server updates the `chatHistory` and broadcasts it to all connected clients.
+
+3. **Real-Time Updates**:
+   - Each message sent is immediately visible to all users through real-time broadcasting.
+
+4. **Disconnection**:
+   - When a client disconnects, the server logs the event but does not remove their messages.
+
+---
+
+#### **Technology Stack**
+
+1. **Node.js**:
+   - JavaScript runtime for backend development.
+2. **Express.js**:
+   - Framework for handling HTTP requests and serving static files.
+3. **Socket.IO**:
+   - Library for real-time, event-driven communication.
+4. **unique-names-generator**:
+   - Utility for generating unique usernames.
+
+---
+
+This backend architecture ensures a lightweight, efficient, and scalable real-time chat server. It provides seamless communication and reliable message management, making it suitable for interactive web applications.
